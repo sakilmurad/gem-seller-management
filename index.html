@@ -5,16 +5,17 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>GeM Seller Management - Edafter</title>
+  <link rel="icon" type="image/png" sizes="16x16" href="https://www.edafter.com/icon/favicon-16x16.png" />
   <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.5/dist/flowbite.min.css" />
 </head>
 
-<body class="dark:bg-gray-900 text-white-400">
+<body class="dark:bg-gray-900 text-white-1000">
   <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
     <div class="container flex flex-wrap items-center justify-between mx-auto">
       <a href="https://Edafter.com/" class="flex items-center">
-        <img src="https://www.shimediwear.com/img/SHI-LOGO.png" class="h-6 mr-3 sm:h-9" alt="Flowbite Logo" />
-        <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">SHI Mediwear</span>
+        <!-- <img src="https://www.edafter.com/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fdl3tfsbn5%2Fimage%2Fupload%2Fv1643042686%2Fnew_full_logo_with_white_back_kiwh0v.svg&w=128&q=75" class="h-6 mr-3 sm:h-9" alt="Flowbite Logo" /> -->
+        <!-- <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">SHI Mediwear</span> -->
       </a>
       <div class="flex md:order-2">
         <button id="theme-toggle" type="button"
@@ -34,101 +35,283 @@
 
     </div>
   </nav>
-  <!-- drawer component -->
-  <div id="drawer-right-example"
-    class="fixed z-40 h-screen p-4 overflow-y-auto bg-white w-80 dark:bg-gray-800 transition-transform right-0 top-0 translate-x-full"
-    tabindex="-1" aria-labelledby="drawer-right-label">
-    <h5 id="drawer-right-label"
-      class="inline-flex items-center mb-4 text-base font-semibold text-gray-500 dark:text-gray-400"><svg
-        class="w-5 h-5 mr-2" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-        xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd"
-          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-          clip-rule="evenodd"></path>
-      </svg>Right drawer</h5>
-    <button type="button" data-drawer-dismiss="drawer-right-example" aria-controls="drawer-right-example"
-      class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
-      <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-        xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd"
-          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-          clip-rule="evenodd"></path>
-      </svg>
-      <span class="sr-only">Close menu</span>
-    </button>
-    <p class="mb-6 text-sm text-gray-500 dark:text-gray-400">Supercharge your hiring by taking advantage of our <a
-        href="#" class="text-blue-600 underline dark:text-blue-500 hover:no-underline">limited-time sale</a> for Edafter
-      Docs + Job Board. Unlimited access to over 190K top-ranked candidates and the #1 design job board.</p>
-    <div class="grid grid-cols-2 gap-4">
-      <a href="#"
-        class="inline-flex items-center p-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Save
-      </a>
-    </div>
-  </div>
   <div class="container my-4 p-2 mx-auto">
-
     <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
-      <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="myTab" data-tabs-toggle="#myTabContent"
+      <ul class="flex flex-wrap -mb-px text-xl font-medium text-center" id="myTab" data-tabs-toggle="#myTabContent"
         role="tablist">
         <li class="mr-2" role="presentation">
-          <button class="inline-block p-4 rounded-t-lg border-b-2" id="profile-tab" data-tabs-target="#profile"
-            type="button" role="tab" aria-controls="profile" aria-selected="false">Profile</button>
+          <button class="inline-block p-4 rounded-t-lg border-b-2" id="dashboard-tab" data-tabs-target="#dashboard"
+            type="button" role="tab" aria-controls="dashboard" aria-selected="false">Dashboard</button>
+        </li>
+        <li class="mr-2" role="presentation">
+          <button class="inline-block p-4 rounded-t-lg border-b-2" id="bid-tab" data-tabs-target="#bid" type="button"
+            role="tab" aria-controls="bid" aria-selected="false">Bids</button>
         </li>
         <li class="mr-2" role="presentation">
           <button
             class="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
-            id="dashboard-tab" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard"
-            aria-selected="false">Dashboard</button>
-        </li>
-        <li class="mr-2" role="presentation">
-          <button
-            class="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
-            id="settings-tab" data-tabs-target="#settings" type="button" role="tab" aria-controls="settings"
-            aria-selected="false">Settings</button>
+            id="order-tab" data-tabs-target="#order" type="button" role="tab" aria-controls="order"
+            aria-selected="false">Orders</button>
         </li>
         <li role="presentation">
           <button
             class="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
-            id="contacts-tab" data-tabs-target="#contacts" type="button" role="tab" aria-controls="contacts"
-            aria-selected="false">Contacts</button>
+            id="incident-tab" data-tabs-target="#incident" type="button" role="tab" aria-controls="incident"
+            aria-selected="false">Incidents</button>
         </li>
+        <li class="mr-2" role="presentation">
+          <button
+            class="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+            id="setting-tab" data-tabs-target="#setting" type="button" role="tab" aria-controls="setting"
+            aria-selected="false">Settings</button>
+        </li>
+
       </ul>
     </div>
     <div id="myTabContent">
-      <div class="hidden p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="profile" role="tabpanel"
-        aria-labelledby="profile-tab">
-        <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong
-            class="font-medium text-gray-800 dark:text-white">Profile tab's associated content</strong>. Clicking
-          another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control
-          the content visibility and styling.</p>
-      </div>
       <div class="hidden p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="dashboard" role="tabpanel"
         aria-labelledby="dashboard-tab">
-        <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong
-            class="font-medium text-gray-800 dark:text-white">Dashboard tab's associated content</strong>. Clicking
-          another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control
-          the content visibility and styling.</p>
+        <!-- component -->
+        <div class="flex flex-col">
+          <h2 class="text-2xl font-bold text-center dark:text-gray-100">Dashboard</h2>
+          <p class="text-gray-600 text-sm text-center dark:text-gray-200">Quickly view your stats from here</p>
+          <div class="grid grid-cols-1 gap-4 mt-4 md:grid-cols-3">
+            <!-- bids  -->
+            <div
+              class="max-w-m p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+              <h5 class="mb-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">Bids</h5>
+              <hr>
+              <ul class="text-lg">
+                <li class="flex justify-between p-2">
+                  <span class="dark:text-gray-100">All Bids</span>
+                  <span class="font-bold rounded-full bg-blue-200 px-2">500</span>
+                </li>
+                <hr>
+                <li class="flex justify-between p-2">
+                  <span class="dark:text-gray-100">To be quoted</span>
+                  <span class="font-bold rounded-full bg-gray-200 px-2">10</span>
+                </li>
+                <hr>
+                <li class="flex justify-between p-2">
+                  <span class="dark:text-gray-100">Near Due</span>
+                  <span class="font-bold rounded-full bg-red-200 px-2">5</span>
+                </li>
+              </ul>
+              <a href="#"
+                class="inline-flex text-center items-center mt-2 px-4 py-2 rounded-full text-sm font-medium text-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                View All
+              </a>
+            </div>
+            <!-- orders  -->
+            <div
+              class="max-w-m p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+              <h5 class="mb-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">Orders</h5>
+              <hr>
+              <ul class="text-lg">
+                <li class="flex justify-between p-2">
+                  <span class="dark:text-gray-100">All Orders</span>
+                  <span class="font-bold rounded-full bg-blue-200 px-2">500</span>
+                </li>
+                <hr>
+                <li class="flex justify-between p-2">
+                  <span class="dark:text-gray-100">Order Values</span>
+                  <span class="font-bold rounded-full bg-gray-200 px-2">10</span>
+                </li>
+                <hr>
+                <li class="flex justify-between p-2">
+                  <span class="dark:text-gray-100">Pending Invoices</span>
+                  <span class="font-bold rounded-full bg-red-200 px-2">5</span>
+                </li>
+              </ul>
+              <a href="#"
+                class="inline-flex text-center items-center mt-2 px-4 py-2 rounded-full text-sm font-medium text-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                View All
+              </a>
+            </div>
+
+            <!-- incidents  -->
+
+            <div
+              class="max-w-m p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+              <h5 class="mb-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">Incidents</h5>
+              <hr>
+              <ul class="text-lg">
+                <li class="flex justify-between p-2">
+                  <span class="dark:text-gray-100">All Incidents</span>
+                  <span class="font-bold rounded-full bg-blue-200 px-2">500</span>
+                </li>
+                <hr>
+                <li class="flex justify-between p-2">
+                  <span class="dark:text-gray-100">To be Escalate</span>
+                  <span class="font-bold rounded-full bg-gray-200 px-2">10</span>
+                </li>
+                <hr>
+                <li class="flex justify-between p-2">
+                  <span class="dark:text-gray-100">To be Closed</span>
+                  <span class="font-bold rounded-full bg-red-200 px-2">5</span>
+                </li>
+              </ul>
+              <a href="#"
+                class="inline-flex text-center items-center mt-2 px-4 py-2 rounded-full text-sm font-medium text-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                View All
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="hidden p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="settings" role="tabpanel"
-        aria-labelledby="settings-tab">
-        <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong
-            class="font-medium text-gray-800 dark:text-white">Settings tab's associated content</strong>. Clicking
-          another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control
-          the content visibility and styling.</p>
+      <div class="hidden p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="bid" role="tabpanel" aria-labelledby="bid-tab">
+        Bid
       </div>
-      <div class="hidden p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="contacts" role="tabpanel"
-        aria-labelledby="contacts-tab">
-        <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong
-            class="font-medium text-gray-800 dark:text-white">Contacts tab's associated content</strong>. Clicking
-          another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control
-          the content visibility and styling.</p>
+      <div class="hidden p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="order" role="tabpanel"
+        aria-labelledby="order-tab">
+        Orders
+      </div>
+      <div class="hidden p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="incident" role="tabpanel"
+        aria-labelledby="incident-tab">
+        Incidents
+      </div>
+      <div class="hidden p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="setting" role="tabpanel"
+        aria-labelledby="setting-tab">
+        <div class="grid grid-cols-1 gap-y-3 gap-x-3.5 md:grid-cols-4 md:gap-x-4">
+          <div class="w-100 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+            <div class="flex flex-col items-center pb-10 mt-2">
+              <img class="w-24 h-24 mb-3 rounded-full shadow-lg"
+                src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="User Img" />
+              <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">SHI Mediwear</h5>
+              <span class="text-sm font-bold text-green-600 dark:text-green-600">Status: Active</span>
+              <span class="text-sm font-bold text-gray-600 dark:text-gray-400">ID: 5468748948</span>
+            </div>
+          </div>
+          <div
+            class="w-100 bg-white col-span-3 p-3 border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+            <div class="min-h-screen flex items-center justify-center px-4 dark:bg-gray-800 dark:border-gray-700">
+
+              <div class="max-w-full  bg-white w-full rounded-lg shadow-xl dark:bg-gray-800 dark:border-gray-700">
+                <div class="p-4 border-b">
+                  <div class="flex justify-between">
+                    <div>
+                      <h2 class="text-2xl dark:text-gray-100">
+                        Settings
+                      </h2>
+                      <p class="text-sm text-gray-500 dark:text-gray-100">
+                        Save the settings to see effect.
+                      </p>
+                    </div>
+                    <button type="button"
+                      class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-1.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+                  </div>
+                </div>
+                <div>
+                  <div
+                    class="md:grid md:grid-cols-2 hover:bg-gray-50 dark:hover:bg-gray-700  md:space-y-0 space-y-1 p-4 border-b">
+                    <p class="text-gray-600 dark:text-gray-100">
+                      Company Name
+                    </p>
+                    <input type="text" id="first_name"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="SHI Mediwear Pvt Ltd">
+                  </div>
+                  <div
+                    class="md:grid md:grid-cols-2 hover:bg-gray-50 dark:hover:bg-gray-700 md:space-y-0 space-y-1 p-4 border-b">
+                    <p class="text-gray-600 dark:text-gray-100">
+                      Company Logo URL
+                    </p>
+                    <input type="text" id="first_name"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="https://example.com/logo.png">
+
+                  </div>
+                  <div
+                    class="md:grid md:grid-cols-2 hover:bg-gray-50 dark:hover:bg-gray-700  md:space-y-0 space-y-1 p-4 border-b">
+                    <p class="text-gray-600 dark:text-gray-100">
+                      Notification Email Address
+                    </p>
+                    <input type="text" id="first_name"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="shimediwear123@gmail.com">
+
+                  </div>
+                  <div
+                    class="md:grid md:grid-cols-2 hover:bg-gray-50 dark:hover:bg-gray-700  md:space-y-0 space-y-1 p-4 border-b">
+                    <p class="text-gray-600 dark:text-gray-100">
+                      Bid Due Reminder
+                    </p>
+                    <label class="inline-flex relative items-center mb-5 cursor-pointer">
+                      <input type="checkbox" value="" class="sr-only peer">
+                      <div
+                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                      </div>
+                    </label>
+                  </div>
+                  <div
+                    class="md:grid md:grid-cols-2 hover:bg-gray-50 dark:hover:bg-gray-700  md:space-y-0 space-y-1 p-4 border-b">
+                    <p class="text-gray-600 dark:text-gray-100">
+                      Invoice Creation Reminder
+                    </p>
+                    <label class="inline-flex relative items-center mb-5 cursor-pointer">
+                      <input type="checkbox" value="" class="sr-only peer">
+                      <div
+                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                      </div>
+                    </label>
+                  </div>
+                  <div
+                    class="md:grid md:grid-cols-2 hover:bg-gray-50 dark:hover:bg-gray-700  md:space-y-0 space-y-1 p-4 border-b">
+                    <p class="text-gray-600 dark:text-gray-100">
+                      Notification Before
+                    </p>
+                    <div>
+                      <select id="small"
+                        class="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected>Choose day</option>
+                        <option value="1">1 Day before</option>
+                        <option value="2">2 Days before</option>
+                        <option value="3">3 Days before</option>
+                        <option value="4">4 Days before</option>
+                        <option value="5">5 Days before</option>
+                        <option value="6">6 Days before</option>
+                        <option value="7">7 Days before</option>
+                        <option value="8">8 Days before</option>
+                        <option value="9">9 Days before</option>
+                        <option value="10">10 Days before</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div
+                    class="md:grid md:grid-cols-2 hover:bg-gray-50 dark:hover:bg-gray-700  md:space-y-0 space-y-1 p-4 border-b">
+                    <p class="text-gray-600 dark:text-gray-100">
+                      Near Due
+                    </p>
+                    <div>
+                      <select id="small"
+                        class="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected>Choose day</option>
+                        <option value="1">1 Day before</option>
+                        <option value="2">2 Days before</option>
+                        <option value="3">3 Days before</option>
+                        <option value="4">4 Days before</option>
+                        <option value="5">5 Days before</option>
+                        <option value="6">6 Days before</option>
+                        <option value="7">7 Days before</option>
+                        <option value="8">8 Days before</option>
+                        <option value="9">9 Days before</option>
+                        <option value="10">10 Days before</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
 
   </div>
 
-  <footer
+  <!-- <footer
     class="fixed bottom-0 left-0 z-20 p-4 w-full bg-white border-t border-gray-200 shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600">
     <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2022 <a href="https://edafter.com/"
         class="hover:underline">Edafter™</a>. All Rights Reserved.
@@ -147,7 +330,7 @@
         <a href="#" class="hover:underline">Contact</a>
       </li>
     </ul>
-  </footer>
+  </footer> -->
 
 
   <script src="https://unpkg.com/flowbite@1.5.5/dist/flowbite.js"></script>
