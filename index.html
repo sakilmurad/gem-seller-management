@@ -51,7 +51,7 @@
           <button
             class="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
             id="order-tab" data-tabs-target="#order" type="button" role="tab" aria-controls="order"
-            aria-selected="false">Orders</button>
+            aria-selected="true">Orders</button>
         </li>
         <li role="presentation">
           <button
@@ -133,7 +133,8 @@
 
             <div
               class="max-w-m p-6 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
-              <h5 class="mb-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">Incidents</h5>
+              <h5 class="mb-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">Incidents
+              </h5>
               <hr>
               <ul class="text-lg">
                 <li class="flex justify-between p-2">
@@ -164,7 +165,109 @@
       </div>
       <div class="hidden p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="order" role="tabpanel"
         aria-labelledby="order-tab">
-        Orders
+
+        <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+          <div class="pb-4 bg-white dark:bg-gray-900 p-4">
+            <label for="table-search" class="sr-only">Search</label>
+            <div class="relative mt-1">
+              <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor"
+                  viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <input type="text" id="table-search"
+                class="block p-2 pl-10 w-80 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Search for items">
+            </div>
+          </div>
+          <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col">
+                  S No
+                </th>
+                <th scope="col">
+                  Date
+                </th>
+                <th scope="col">
+                  Contract No
+                </th>
+                <th scope="col">
+                  Product Name
+                </th>
+                <th scope="col">
+                  Qty
+                </th>
+                <th scope="col">
+                  Rate (₹)
+                </th>
+                <th scope="col">
+                  Total Value (₹)
+                </th>
+                <th scope="col">
+                  Buyer Name
+                </th>
+                <th scope="col">
+                  Address
+                </th>
+                <th scope="col">
+                  Dispatch Details
+                </th>
+                <th scope="col">
+                  Payment Status
+                </th>
+                <th scope="col">
+                  Edit
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+              class="bg-white text-center border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+              <th scope="row" class="py-4 px-6">
+                1
+              </th>
+              <td class="py-4 px-2">
+                29-12-2022
+              </td>
+              <td class="py-4 px-1">
+               <a class="text-blue-600" href="https://drive.google.com/file/d/12nAmF6xvn2XhVZ1AmEF3LoTRlyzMEokr/view?usp=sharing">GEMC-511687798054443</a>
+              </td>
+              <td class="py-4 px-1">
+                3 PLY FACE MASK
+              </td>
+              <td class="py-4 px-1">
+                2000
+              </td>
+              <td class="py-4 px-1">
+                2
+              </td>
+              <td class="py-4 px-1">
+                10000
+              </td>
+              <td class="py-4 px-1">
+                GOVIND KUMAR JHA
+              </td>
+              <td class="py-4 px-1">
+                CCMB, HABSIGUDA, UPPAL ROAD, HYDERABAD 500007
+              </td>
+              <td class="py-4 px-1">
+                Dispatched
+              </td>
+              <td class="py-4 px-1">
+                Pending
+              </td>
+              <td class="py-4 px-6">
+                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
       </div>
       <div class="hidden p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="incident" role="tabpanel"
         aria-labelledby="incident-tab">
