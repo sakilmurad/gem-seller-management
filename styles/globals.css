@@ -3,3 +3,18 @@
   padding: 0;
   margin: 0;
 }
+.logo{
+  margin: 5px 0 0 15px;
+}
+
+/* .MuiListItem-root .Mui-selected{
+  color: #ff5e18;
+}  */
+a{
+  text-decoration: none;
+}
+
+nav a{
+  width: 100%;
+  color: #000;
+}
