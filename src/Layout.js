@@ -17,10 +17,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
-import Footer from "./Footer";
 import Button from "@mui/material/Button";
-import Link from 'next/link'
-import Avatar from '@mui/material/Avatar';
+import Link from "next/link";
+import Avatar from "@mui/material/Avatar";
 
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import GavelIcon from "@mui/icons-material/Gavel";
@@ -30,7 +29,7 @@ import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import SettingsIcon from "@mui/icons-material/Settings";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
-const drawerWidth = 240;
+const drawerWidth = 180;
 
 const upperMenu = [
   { lable: "Dashboard", icon: <DashboardIcon />, to: "/" },
@@ -45,6 +44,15 @@ const lowerMenu = [
   { lable: "Settings", icon: <SettingsIcon />, to: "/settings" },
 ];
 
+const Footer = () =>{
+  return(
+    <>
+    Copyright &copy;{new Date().getFullYear()}{" "}
+  <a href='https://www.edafter.com'>Edafter</a>
+    </>
+  )
+}
+
 function Layout({ children }, props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -58,6 +66,8 @@ function Layout({ children }, props) {
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
     setactiveTab(index);
+    // close mobile drawer
+    mobileOpen && setMobileOpen(false);
   };
 
   const drawer = (
@@ -74,17 +84,20 @@ function Layout({ children }, props) {
         {upperMenu.map((text, index) => (
           <ListItem key={text} disablePadding disableGutters>
             <Link href={text.to}>
-            <ListItemButton
-              sx={{ borderRadius: 5 }}
-              selected={selectedIndex === text.lable}
-              onClick={(event) => handleListItemClick(event, text.lable)}
-            >
-              <ListItemIcon>{text.icon}</ListItemIcon>
-              <ListItemText
-                primary={text.lable}
-                primaryTypographyProps={{ fontSize: 14, fontWeight: "medium" }}
-              />
-            </ListItemButton>
+              <ListItemButton
+                sx={{ borderRadius: 5 }}
+                selected={selectedIndex === text.lable}
+                onClick={(event) => handleListItemClick(event, text.lable)}
+              >
+                <ListItemIcon>{text.icon}</ListItemIcon>
+                <ListItemText
+                  primary={text.lable}
+                  primaryTypographyProps={{
+                    fontSize: 14,
+                    fontWeight: "medium",
+                  }}
+                />
+              </ListItemButton>
             </Link>
           </ListItem>
         ))}
@@ -94,21 +107,33 @@ function Layout({ children }, props) {
         {lowerMenu.map((text, index) => (
           <ListItem key={text} disablePadding disableGutters>
             <Link href={text.to}>
-            <ListItemButton
-              sx={{ borderRadius: 5 }}
-              dense
-              selected={selectedIndex === text.lable}
-              onClick={(event) => handleListItemClick(event, text.lable)}
-            >
-              <ListItemIcon>{text.icon}</ListItemIcon>
-              <ListItemText
-                primary={text.lable}
-                primaryTypographyProps={{ fontSize: 14, fontWeight: "medium" }}
-              />
-            </ListItemButton>
+              <ListItemButton
+                sx={{ borderRadius: 5 }}
+                dense
+                selected={selectedIndex === text.lable}
+                onClick={(event) => handleListItemClick(event, text.lable)}
+              >
+                <ListItemIcon>{text.icon}</ListItemIcon>
+                <ListItemText
+                  primary={text.lable}
+                  primaryTypographyProps={{
+                    fontSize: 14,
+                    fontWeight: "medium",
+                  }}
+                />
+              </ListItemButton>
             </Link>
           </ListItem>
         ))}
+        <ListItem>
+          <ListItemText
+                  primary={<Footer/>}
+                  primaryTypographyProps={{
+                    fontSize: 10,
+                    fontWeight: "medium",
+                  }}
+                />
+        </ListItem>
       </List>
     </div>
   );
@@ -137,7 +162,7 @@ function Layout({ children }, props) {
           >
             <MenuIcon />
           </IconButton>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {activeTab}
           </Typography>
           <Avatar sx={{ bgcolor: "orange", width: 34, height: 34 }}>N</Avatar>
@@ -191,7 +216,6 @@ function Layout({ children }, props) {
       >
         <Toolbar variant="dense" />
         {children}
-        <Footer />
       </Box>
     </Box>
   );

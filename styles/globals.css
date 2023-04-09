@@ -14,7 +14,7 @@ a{
   text-decoration: none;
 }
 
-nav a{
+.MuiDrawer-root a{
   width: 100%;
   color: #000;
 }
