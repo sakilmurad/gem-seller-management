@@ -1,8 +1,9 @@
 import React from 'react'
+import Under from '@/src/utils/under'
 
 function Incidents() {
   return (
-    <div>Incidents</div>
+    <Under/>
   )
 }
 
