@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -18,28 +18,25 @@ import Image from "next/image";
 import Button from "@mui/material/Button";
 import Link from "next/link";
 import Avatar from "@mui/material/Avatar";
-
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import GavelIcon from "@mui/icons-material/Gavel";
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 import QueryBuilderIcon from "@mui/icons-material/QueryBuilder";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
-import SettingsIcon from "@mui/icons-material/Settings";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { useRouter } from 'next/router'
 
 const drawerWidth = 180;
 
-const upperMenu = [
-  { lable: "Dashboard", icon: <DashboardIcon />, to: "/" },
-  { lable: "Bids", icon: <GavelIcon />, to: "/bids" },
-  { lable: "Orders", icon: <LocalGroceryStoreIcon />, to: "/orders" },
-  { lable: "Incidents", icon: <QueryBuilderIcon />, to: "/incidents" },
-  { lable: "EMD & ePBG", icon: <CurrencyRupeeIcon />, to: "/emdepbg" },
+const menuItemList = [
+  { lable: "Dashboard", icon: <DashboardIcon />, to: "/", placement: 'upper'},
+  { lable: "Bids", icon: <GavelIcon />, to: "/bids", placement: 'upper' },
+  { lable: "Orders", icon: <LocalGroceryStoreIcon />, to: "/orders", placement: 'upper' },
+  { lable: "Incidents", icon: <QueryBuilderIcon />, to: "/incidents", placement: 'upper' },
+  { lable: "EMD & ePBG", icon: <CurrencyRupeeIcon />, to: "/emdepbg", placement: 'upper' },
+  { lable: "Profile", icon: <AccountCircleIcon />, to: "/profile", placement: 'lower' }
 ];
 
-const lowerMenu = [
-  { lable: "Profile", icon: <AccountCircleIcon />, to: "/profile" }
-];
 
 const Footer = () =>{
   return(
@@ -51,17 +48,22 @@ const Footer = () =>{
 }
 
 function Layout({ children }, props) {
+  const router = useRouter()
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [selectedIndex, setSelectedIndex] = React.useState("Dashboard");
-  const [activeTab, setactiveTab] = React.useState("Dashboard");
+  const [activeTab, setactiveTab] = React.useState();
+
+ useEffect(() => {
+  let obj = menuItemList.find(o => o.to === router.pathname);
+  setactiveTab(obj.lable);
+}, [])
+
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
   const handleListItemClick = (event, index) => {
-    setSelectedIndex(index);
     setactiveTab(index);
     // close mobile drawer
     mobileOpen && setMobileOpen(false);
@@ -78,12 +80,13 @@ function Layout({ children }, props) {
       />
       <Divider />
       <List sx={{ padding: 0 }}>
-        {upperMenu.map((text, index) => (
+        {menuItemList.map((text, index) => (
+          text.placement == "upper" &&
           <ListItem key={text} disablePadding disableGutters>
             <Link href={text.to}>
               <ListItemButton
                 sx={{ borderRadius: 5 }}
-                selected={selectedIndex === text.lable}
+                selected={activeTab === text.lable}
                 onClick={(event) => handleListItemClick(event, text.lable)}
               >
                 <ListItemIcon>{text.icon}</ListItemIcon>
@@ -101,13 +104,14 @@ function Layout({ children }, props) {
       </List>
 
       <List sx={{ position: "absolute", bottom: 0, width: "100%" }}>
-        {lowerMenu.map((text, index) => (
+        {menuItemList.map((text, index) => (
+          text.placement == "lower" &&
           <ListItem key={text} disablePadding disableGutters>
             <Link href={text.to}>
               <ListItemButton
                 sx={{ borderRadius: 5 }}
                 dense
-                selected={selectedIndex === text.lable}
+                selected={activeTab === text.lable}
                 onClick={(event) => handleListItemClick(event, text.lable)}
               >
                 <ListItemIcon>{text.icon}</ListItemIcon>

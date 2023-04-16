@@ -4,10 +4,12 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Alert from '@mui/material/Alert';
+import Layout from "../src/Layout";
 
 function Dashboard() {
 
   return (
+    <Layout>
     <Box sx={{ width: "100%" }}>
                <Alert variant="outlined" severity="info" sx={{mb:1}}>
         This is an info alert — check it out!
@@ -44,6 +46,7 @@ function Dashboard() {
         </Grid>     
       </Paper>
     </Box>
+    </Layout>
   );
 }
 
