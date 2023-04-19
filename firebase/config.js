@@ -5,13 +5,12 @@ import { getFirestore } from "firebase/firestore"
 // Your web app's Firebase configuration
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCzlgj89Y5nalRqNKtwIaYGdr0F65CONe8",
-    authDomain: "tender-management-222c8.firebaseapp.com",
-    projectId: "tender-management-222c8",
-    storageBucket: "tender-management-222c8.appspot.com",
-    messagingSenderId: "795669156045",
-    appId: "1:795669156045:web:cf624fa4c49d50e79c1984"
-  
+  apiKey: "AIzaSyATSP5NopXKrR19fs2mgEgth9tqAaDTKaw",
+  authDomain: "gem-hub.firebaseapp.com",
+  projectId: "gem-hub",
+  storageBucket: "gem-hub.appspot.com",
+  messagingSenderId: "407926553267",
+  appId: "1:407926553267:web:ccae389e19f28446d34ec6"
   };
   
 

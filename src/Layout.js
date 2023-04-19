@@ -15,7 +15,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
-import Button from "@mui/material/Button";
 import Link from "next/link";
 import Avatar from "@mui/material/Avatar";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -25,6 +24,12 @@ import QueryBuilderIcon from "@mui/icons-material/QueryBuilder";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useRouter } from 'next/router'
+import { authorization } from "../firebase/config";
+import { onAuthStateChanged } from "@firebase/auth";
+import { signOut } from "@firebase/auth";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
+
 
 const drawerWidth = 180;
 
@@ -50,8 +55,11 @@ const Footer = () =>{
 function Layout({ children }, props) {
   const router = useRouter()
   const { window } = props;
+  const [isSigned, setIsSigned] = React.useState(false);
+  const [userData, setUserData] = React.useState([]);
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [activeTab, setactiveTab] = React.useState();
+  const [anchorElProfileMenu, setanchorElProfileMenu] = React.useState(null);
 
  useEffect(() => {
   let obj = menuItemList.find(o => o.to === router.pathname);
@@ -67,6 +75,33 @@ function Layout({ children }, props) {
     setactiveTab(index);
     // close mobile drawer
     mobileOpen && setMobileOpen(false);
+  };
+
+  const handleProfileMenu = (event) => {
+    setanchorElProfileMenu(event.currentTarget);
+  };
+
+  const handleProfileMenuClose = () => {
+    setanchorElProfileMenu(null);
+  };
+
+  onAuthStateChanged(authorization, (user) => {
+    if (user) {
+      setUserData(user);
+      setIsSigned(true);
+      const uid = user.uid;
+    }
+  });
+
+  const Signout = () => {
+    signOut(authorization)
+      .then(() => {
+        setIsSigned(false);
+        handleProfileMenuClose();
+      })
+      .catch((error) => {
+        // An error happened.
+      });
   };
 
   const drawer = (
@@ -166,7 +201,40 @@ function Layout({ children }, props) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {activeTab}
           </Typography>
-          <Avatar sx={{ bgcolor: "orange", width: 34, height: 34 }}>N</Avatar>
+          {isSigned &&
+            <div>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleProfileMenu}
+                color="inherit"
+              >
+                <Avatar
+                  alt={userData.displayName}
+                  src={userData.photoURL}
+                  sx={{ width: 25, height: 25 }}
+                />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElProfileMenu}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElProfileMenu)}
+                onClose={handleProfileMenuClose}
+              >
+                <MenuItem onClick={Signout}>Logout</MenuItem>
+              </Menu>
+            </div>}
         </Toolbar>
       </AppBar>
       <Box

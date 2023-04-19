@@ -113,19 +113,19 @@ const BidTable = () => {
     () => [
       {
         accessorKey: 'name.firstName', //access nested data with dot notation
-        header: 'First Name',
+        header: 'Bid No',
       },
       {
         accessorKey: 'name.lastName',
-        header: 'Last Name',
+        header: 'Item Name',
       },
       {
         accessorKey: 'address', //normal accessorKey
-        header: 'Address',
+        header: 'Qty',
       },
       {
         accessorKey: 'city',
-        header: 'City',
+        header: 'Organization Name',
       },
       {
         accessorKey: 'state',
@@ -137,7 +137,6 @@ const BidTable = () => {
 
   return <MaterialReactTable columns={columns} data={data}
   enableStickyHeader
-  muiTableContainerProps={{ sx: { maxHeight: '300px' } }}
   muiTablePaginationProps={{
     rowsPerPageOptions: [10, 20, 50],
     showFirstButton: false,

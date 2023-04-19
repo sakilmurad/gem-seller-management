@@ -24,7 +24,6 @@ const infoItem = [
 ];
 function Profile() {
   return (
-    <Layout>
       <Box sx={{ flexGrow: 1, mt: 2 }}>
         <Paper>
           <Grid container spacing={1}>
@@ -96,8 +95,12 @@ function Profile() {
           </Grid>
         </Paper>
       </Box>
-    </Layout>
   );
 }
 
 export default Profile;
+
+Profile.getLayout = function getLayout(page) {
+    return <Layout>{page}</Layout>;
+  };
+  

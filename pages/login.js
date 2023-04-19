@@ -40,7 +40,7 @@ const insertData = async (displayName, email, uid) => {
 
 function Login() {
   const { query } = useRouter();
-  const [formLoading, setFormLoading] = React.useState(false);
+  const [formLoading, setFormLoading] = React.useState(true);
   const [MessageStatus, setMessageStatus] = React.useState();
   const [open, setOpen] = React.useState(false);
 
@@ -53,10 +53,7 @@ function Login() {
 
   onAuthStateChanged(authorization, (user) => {
     if (user) {
-      if (query.next) {
-        Router.push("/" + query.next);
-      }
-      Router.push("/profile");
+      Router.push("/");
     }
   });
 
@@ -90,7 +87,7 @@ function Login() {
           startIcon={<GoogleIcon />}
           onClick={SignupwithGoogle}
         >
-          Signin with Google
+          Login with Google
         </Button>
       </div>
     );
@@ -137,10 +134,10 @@ function Login() {
   return (
     <Container component="main" maxWidth="xs">
       <Head>
-        <title>Login - GeM Seller Management</title>
+        <title>Login - GeM Hub</title>
         <meta
           name="description"
-          content="Login to use GeM Seller Management platform"
+          content="Login to use GeM Seller Hub"
         />
       </Head>
       {formLoading && <LinearProgress />}

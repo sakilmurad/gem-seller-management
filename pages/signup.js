@@ -40,7 +40,7 @@ const insertData = async (displayName, email, uid) => {
 };
 
 function Signup() {
-  const [formLoading, setFormLoading] = React.useState(false);
+  const [formLoading, setFormLoading] = React.useState(true);
   const [MessageStatus, setMessageStatus] = React.useState();
   const [open, setOpen] = React.useState(false);
 
@@ -153,10 +153,10 @@ function Signup() {
   return (
     <Container component="main" maxWidth="xs">
       <Head>
-        <title>Signin - GeM Portal Course</title>
+        <title>Signup - GeM Hub</title>
         <meta
           name="description"
-          content="Signin to use advance services on GeM Portal Course"
+          content="Signin to use GeM Seller Hub"
         />
       </Head>
       {formLoading && <LinearProgress />}
