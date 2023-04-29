@@ -1,10 +1,13 @@
 import React from 'react'
-import Under from '@/src/utils/under'
-import Layout from '@/src/Layout'
+import Under from '@/src/components/under'
+import Layout from '@/src/components/Layout'
+import Protected from '@/src/components/Protected'
 
 function Orders() {
   return (
+    <Protected>
     <Under/>
+    </Protected>
   )
 }
 

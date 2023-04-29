@@ -6,6 +6,7 @@ import { CacheProvider } from "@emotion/react";
 import createEmotionCache from "../src/createEmotionCache";
 import "../styles/globals.css";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { AuthContextProvider } from "@/src/context/AuthContext";
 
 
 // Client-side cache, shared for the whole session of the user in the browser.
@@ -30,7 +31,9 @@ export default function App(props) {
       {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
       <CssBaseline />
       <ThemeProvider theme={theme}>
+      <AuthContextProvider>
       {getLayout(<Component {...pageProps} />)}
+      </AuthContextProvider>
       </ThemeProvider>
     </CacheProvider>
   );

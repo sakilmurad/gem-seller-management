@@ -24,11 +24,9 @@ import QueryBuilderIcon from "@mui/icons-material/QueryBuilder";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useRouter } from 'next/router'
-import { authorization } from "../firebase/config";
-import { onAuthStateChanged } from "@firebase/auth";
-import { signOut } from "@firebase/auth";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
+import { UserAuth } from "../context/AuthContext";
 
 
 const drawerWidth = 180;
@@ -53,10 +51,9 @@ const Footer = () =>{
 }
 
 function Layout({ children }, props) {
+  const {user, logout} = UserAuth();
   const router = useRouter()
   const { window } = props;
-  const [isSigned, setIsSigned] = React.useState(false);
-  const [userData, setUserData] = React.useState([]);
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [activeTab, setactiveTab] = React.useState();
   const [anchorElProfileMenu, setanchorElProfileMenu] = React.useState(null);
@@ -66,6 +63,9 @@ function Layout({ children }, props) {
   setactiveTab(obj.lable);
 }, [])
 
+const Signout = () =>{
+  logout();
+}
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -85,24 +85,6 @@ function Layout({ children }, props) {
     setanchorElProfileMenu(null);
   };
 
-  onAuthStateChanged(authorization, (user) => {
-    if (user) {
-      setUserData(user);
-      setIsSigned(true);
-      const uid = user.uid;
-    }
-  });
-
-  const Signout = () => {
-    signOut(authorization)
-      .then(() => {
-        setIsSigned(false);
-        handleProfileMenuClose();
-      })
-      .catch((error) => {
-        // An error happened.
-      });
-  };
 
   const drawer = (
     <div>
@@ -117,7 +99,7 @@ function Layout({ children }, props) {
       <List sx={{ padding: 0 }}>
         {menuItemList.map((text, index) => (
           text.placement == "upper" &&
-          <ListItem key={text} disablePadding disableGutters>
+          <ListItem key={index} disablePadding disableGutters>
             <Link href={text.to}>
               <ListItemButton
                 sx={{ borderRadius: 5 }}
@@ -141,7 +123,7 @@ function Layout({ children }, props) {
       <List sx={{ position: "absolute", bottom: 0, width: "100%" }}>
         {menuItemList.map((text, index) => (
           text.placement == "lower" &&
-          <ListItem key={text} disablePadding disableGutters>
+          <ListItem key={index} disablePadding disableGutters>
             <Link href={text.to}>
               <ListItemButton
                 sx={{ borderRadius: 5 }}
@@ -174,6 +156,41 @@ function Layout({ children }, props) {
     </div>
   );
 
+  const renderProfile = () =>{
+    if( user == null){
+      return <Link href="/login">Login</Link>;
+    }
+    return (<div>
+      <IconButton
+        size="medium"
+        aria-label="account of current user"
+        aria-controls="menu-appbar"
+        aria-haspopup="true"
+        onClick={handleProfileMenu}
+        color="inherit"
+      >
+        <Avatar alt="Avatar" sx={{ width: 28, height: 28 }} src={user.photoURL?user.photoURL:"https://lh3.googleusercontent.com/ogw/AOLn63FpnDp3tUsaoXzOv6FUoTI8pOltunk4TRc-plBY=s32-c-mo"}/>
+      </IconButton>
+      <Menu
+        id="menu-appbar"
+        anchorEl={anchorElProfileMenu}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        keepMounted
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        open={Boolean(anchorElProfileMenu)}
+        onClose={handleProfileMenuClose}
+      >
+        <MenuItem onClick={Signout}>Logout</MenuItem>
+      </Menu>
+    </div>);
+  }
+
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
@@ -201,40 +218,7 @@ function Layout({ children }, props) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {activeTab}
           </Typography>
-          {isSigned &&
-            <div>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleProfileMenu}
-                color="inherit"
-              >
-                <Avatar
-                  alt={userData.displayName}
-                  src={userData.photoURL}
-                  sx={{ width: 25, height: 25 }}
-                />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElProfileMenu}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElProfileMenu)}
-                onClose={handleProfileMenuClose}
-              >
-                <MenuItem onClick={Signout}>Logout</MenuItem>
-              </Menu>
-            </div>}
+          {renderProfile()}
         </Toolbar>
       </AppBar>
       <Box

@@ -10,9 +10,10 @@ import ListItemText from "@mui/material/ListItemText";
 import { Chip } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import Layout from "@/src/Layout";
+import Layout from "@/src/components/Layout";
 import LogoutIcon from "@mui/icons-material/Logout";
-
+import { UserAuth } from "@/src/context/AuthContext";
+import Protected from "@/src/components/Protected";
 const infoItem = [
   "Joined",
   "Plan",
@@ -23,21 +24,36 @@ const infoItem = [
   "No of Incidents",
 ];
 function Profile() {
+  const { user, logout } = UserAuth();
+
+  const handleLogout = () =>{
+    logout()
+
+  }
   return (
+    <Protected>
       <Box sx={{ flexGrow: 1, mt: 2 }}>
         <Paper>
           <Grid container spacing={1}>
             <Grid item sm={4} xs={12} sx={{ textAlign: "center" }}>
               <Avatar
-                alt="Murad"
-                src="https://lh3.googleusercontent.com/a/AGNmyxbsJjU3MomMTjmvnHSWX5oJFxW27ILY5PG8FMLWcQ=s96-c-rg-br100"
+                alt="User"
+                src={
+                  user &&
+                  user.photoURL
+                    ? user.photoURL
+                    : "https://lh3.googleusercontent.com/a/AGNmyxakOE5fuf2QA_dwSot8lujtWc1Al8WPBVbqZAwq=s96-c-rg-br100"
+                }
                 sx={{ width: 100, height: 100, margin: "0 auto" }}
               />
-              <Typography variant="h6">Murad</Typography>
-              <Typography variant="caption">
-                Email Id: sakilmura52@gmail.com
-              </Typography>
-              <Button sx={{display: 'flex', margin: '5px auto'}} startIcon={<LogoutIcon />} size="small">
+              <Typography variant="h6">{user && user.displayName}</Typography>
+              <Typography variant="caption">Email Id: {user && user.email}</Typography>
+              <Button
+                sx={{ display: "flex", margin: "5px auto" }}
+                startIcon={<LogoutIcon />}
+                size="small"
+                onClick={handleLogout}
+              >
                 Logout
               </Button>
               <Divider sx={{ mt: 2, display: { xs: "block", md: "none" } }} />
@@ -95,12 +111,12 @@ function Profile() {
           </Grid>
         </Paper>
       </Box>
+    </Protected>
   );
 }
 
 export default Profile;
 
 Profile.getLayout = function getLayout(page) {
-    return <Layout>{page}</Layout>;
-  };
-  
+  return <Layout>{page}</Layout>;
+};

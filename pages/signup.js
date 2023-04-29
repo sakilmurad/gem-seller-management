@@ -1,14 +1,5 @@
-import React from "react";
-import { authorization, db } from "../firebase/config";
-import {
-  GoogleAuthProvider,
-  onAuthStateChanged,
-  signInWithPopup,
-  signOut,
-  createUserWithEmailAndPassword,
-} from "firebase/auth";
-import { setDoc, doc } from "firebase/firestore";
-import Router from "next/router";
+import React, {useEffect} from "react";
+import {useRouter} from "next/router";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Avatar from "@mui/material/Avatar";
@@ -25,30 +16,15 @@ import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Head from "next/head";
-
-const insertData = async (displayName, email, uid) => {
-  const data = {
-    displayName,
-    email,
-  };
-
-  try {
-    await setDoc(doc(db, "users", uid), data);
-  } catch (e) {
-    signOut(authorization);
-  }
-};
+import { UserAuth } from "@/src/context/AuthContext";
 
 function Signup() {
-  const [formLoading, setFormLoading] = React.useState(true);
+  const {user, createUser, googleSignin} = UserAuth();
+  const [formLoading, setFormLoading] = React.useState(false);
   const [MessageStatus, setMessageStatus] = React.useState();
   const [open, setOpen] = React.useState(false);
+  const router = useRouter()
 
-  onAuthStateChanged(authorization, (user) => {
-    if (user) {
-      Router.push("/");
-    }
-  });
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -57,26 +33,17 @@ function Signup() {
     setOpen(false);
   };
 
-  const SignupwithGoogle = () => {
+  const SignupwithGoogle = async () => {
     setFormLoading(true);
-    const provider = new GoogleAuthProvider();
-    // signinwithgoogle
-    signInWithPopup(authorization, provider)
-      .then((res) => {
-        insertData(res.user.displayName, res.user.email, res.user.uid);
-        setFormLoading(false);
-      })
-      .catch((err) => {
-        if (err.code == "auth/popup-blocked") {
-          setMessageStatus("Popup is blocked. Please enable to signin");
-        } else if (err.code == "auth/popup-closed-by-user") {
-          setMessageStatus("Popup is closed by you");
-        } else {
-          setMessageStatus("Unknown error, Please contact us");
-        }
-        setOpen(true);
-        setFormLoading(false);
-      });
+    try {
+      await googleSignin()
+      router.push('/')
+    } catch (e) {
+      setMessageStatus(e.message)
+      setOpen(true);
+      console.log(e.message)
+    }
+    setFormLoading(false);
   };
 
   const action = (
@@ -106,7 +73,7 @@ function Signup() {
     );
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     setFormLoading(true);
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -128,26 +95,17 @@ function Signup() {
     const email = data.get("email");
     const password = data.get("password");
 
-    createUserWithEmailAndPassword(authorization, email, password)
-      .then((userCredential) => {
-        const displayName = `${Fname} ${Lname}`;
-        insertData(displayName, email, userCredential.user.uid);
-        setFormLoading(false);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        if (errorCode == "auth/invalid-email") {
-          setMessageStatus("Please enter a valid email id");
-        } else if (errorCode == "auth/weak-password") {
-          setMessageStatus("Your password is very weak");
-        } else if (errorCode == "auth/email-already-in-use") {
-          setMessageStatus("Email id alredy exist");
-        } else {
-          setMessageStatus("Unknown error, Please contact us");
-        }
-        setOpen(true);
-        setFormLoading(false);
-      });
+    const displayName = `${Fname} ${Lname}`;
+    
+    try {
+      await createUser(displayName, email, password)
+      router.push('/')
+    } catch (e) {
+      setMessageStatus(e.message)
+      setOpen(true);
+      console.log(e.message)
+    }
+    setFormLoading(false);
   };
 
   return (

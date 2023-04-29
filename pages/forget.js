@@ -1,7 +1,4 @@
 import React from 'react'
-import { authorization} from '../firebase/config'
-import { onAuthStateChanged, sendPasswordResetEmail  } from "firebase/auth";
-import Router from 'next/router';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Avatar from '@mui/material/Avatar';
@@ -16,9 +13,10 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Head from "next/head";
+import { UserAuth } from '@/src/context/AuthContext';
 
 function Forget() {
-
+    const {sendPasswordReset} = UserAuth()
     const [formLoading, setFormLoading] = React.useState(false);
   const [MessageStatus, setMessageStatus] = React.useState();
   const [open, setOpen] = React.useState(false);
@@ -30,12 +28,6 @@ function Forget() {
     setOpen(false);
   };
 
-
-  onAuthStateChanged(authorization, (user) => {
-    if (user) {
-      Router.push("/")
-    }
-  });
 
   const action = (
     <React.Fragment>
@@ -51,28 +43,20 @@ function Forget() {
   );
 
   
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     setFormLoading(true);
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const email = data.get('email');
-    sendPasswordResetEmail(authorization, email)
-    .then(()=>{
-        setFormLoading(false);
-
-    })
-    .catch((error) =>{
-        console.log(error);
-        if(error.code == "auth/invalid-email"){
-            setMessageStatus("Please enter a valid email id"); 
-        }else if(error.code == "auth/user-not-found"){
-            setMessageStatus("No account found");
-        }else{
-            setMessageStatus("Error: Please contact us")
-        }
-        setOpen(true);
-        setFormLoading(false);
-    });
+    try {
+      await sendPasswordReset(email)
+      setMessageStatus("Email Sent Successfully")
+    } catch (e) {
+      setMessageStatus(e.message)
+      console.log(e.message)
+    }
+    setOpen(true);
+    setFormLoading(false);
   }
     return (
         <Container component="main" maxWidth="xs">
