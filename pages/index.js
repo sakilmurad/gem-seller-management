@@ -6,8 +6,10 @@ import Grid from "@mui/material/Grid";
 import Alert from "@mui/material/Alert";
 import Layout from "../src/components/Layout";
 import Protected from "@/src/components/Protected";
+import { UserAuth } from "@/src/context/AuthContext";
 
 function Dashboard() {
+  const { user } = UserAuth();
   return (
     <Protected>
       <Box sx={{ width: "100%" }}>

@@ -169,7 +169,7 @@ const Signout = () =>{
         onClick={handleProfileMenu}
         color="inherit"
       >
-        <Avatar alt="Avatar" sx={{ width: 28, height: 28 }} src={user.photoURL?user.photoURL:"https://lh3.googleusercontent.com/ogw/AOLn63FpnDp3tUsaoXzOv6FUoTI8pOltunk4TRc-plBY=s32-c-mo"}/>
+        <Avatar alt="Avatar" sx={{ width: 28, height: 28 }} src={user.photoURL?user.photoURL:"/img/default.png"}/>
       </IconButton>
       <Menu
         id="menu-appbar"

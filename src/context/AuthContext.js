@@ -1,37 +1,33 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
   signInWithPopup,
-  GoogleAuthProvider,
-  sendPasswordResetEmail
+  GoogleAuthProvider
 } from 'firebase/auth';
-import { auth } from '../firebase/config';
+import { auth, db } from '../firebase/config';
+import { doc, setDoc, getDoc, getDocs, collection } from "firebase/firestore"; 
 
 const UserContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
 
-  const createUser = (displayName, email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
-  };
-
-   const signIn = (email, password) =>  {
-    return signInWithEmailAndPassword(auth, email, password)
-   }
-
    const googleSignin = () =>{
     const provider = new GoogleAuthProvider();
-    return signInWithPopup(auth, provider)
-    
+    const signin =  signInWithPopup(auth, provider)
+    return signin;
    }
 
-   const sendPasswordReset = (email) =>{
-    return sendPasswordResetEmail(auth, email);
+   const getBids = async () =>{
+
+    const querySnapshot = await getDocs(collection(db, "users"));
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id, " => ", doc.data());
+    });
    }
+
 
   const logout = () => {
       return signOut(auth)
@@ -48,7 +44,7 @@ export const AuthContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ createUser, user, logout, signIn, googleSignin, sendPasswordReset }}>
+    <UserContext.Provider value={{ user, logout, googleSignin, getBids }}>
       {children}
     </UserContext.Provider>
   );

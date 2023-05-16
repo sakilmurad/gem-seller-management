@@ -42,7 +42,7 @@ function Profile() {
                   user &&
                   user.photoURL
                     ? user.photoURL
-                    : "https://lh3.googleusercontent.com/a/AGNmyxakOE5fuf2QA_dwSot8lujtWc1Al8WPBVbqZAwq=s96-c-rg-br100"
+                    : "/img/apple-touch-icon.png"
                 }
                 sx={{ width: 100, height: 100, margin: "0 auto" }}
               />
@@ -61,8 +61,8 @@ function Profile() {
             <Grid item xs={6} sm={3}>
               <List dense>
                 {infoItem.map((item) => (
-                  <ListItem alignItems="flex-end">
-                    <ListItemText key={item}>
+                  <ListItem key={item}>
+                    <ListItemText >
                       <Typography variant="body1">{item}</Typography>
                     </ListItemText>
                   </ListItem>
@@ -71,37 +71,37 @@ function Profile() {
             </Grid>
             <Grid item xs={6} sm={5}>
               <List dense>
-                <ListItem alignItems="flex-start">
+                <ListItem>
                   <ListItemText>
-                    <Typography variant="body1">15 April 2023</Typography>
+                    <Typography variant="body1">{user && new Date(user.metadata.creationTime).toDateString()}</Typography>
                   </ListItemText>
                 </ListItem>
-                <ListItem alignItems="flex-start">
+                <ListItem>
                   <ListItemText>
                     <Chip label="Active" size="small" color="success" />
                   </ListItemText>
                 </ListItem>
-                <ListItem alignItems="flex-start">
+                <ListItem>
                   <ListItemText>
                     <Typography variant="body1">15 April 2024</Typography>
                   </ListItemText>
                 </ListItem>
-                <ListItem alignItems="flex-start">
+                <ListItem>
                   <ListItemText>
                     <Typography variant="body1">500</Typography>
                   </ListItemText>
                 </ListItem>
-                <ListItem alignItems="flex-start">
+                <ListItem>
                   <ListItemText>
                     <Typography variant="body1">500</Typography>
                   </ListItemText>
                 </ListItem>
-                <ListItem alignItems="flex-start">
+                <ListItem>
                   <ListItemText>
                     <Typography variant="body1">₹ 500</Typography>
                   </ListItemText>
                 </ListItem>
-                <ListItem alignItems="flex-start">
+                <ListItem>
                   <ListItemText>
                     <Typography variant="body1">5</Typography>
                   </ListItemText>

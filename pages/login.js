@@ -1,12 +1,8 @@
 import React, {useEffect} from "react";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Link from "next/link";
-import Grid from "@mui/material/Grid";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
+import Avatar from "@mui/material/Avatar"
 import Container from "@mui/material/Container";
 import GoogleIcon from "@mui/icons-material/Google";
 import LinearProgress from "@mui/material/LinearProgress";
@@ -16,13 +12,28 @@ import CloseIcon from "@mui/icons-material/Close";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { UserAuth } from "@/src/context/AuthContext";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
+import Typography from "@mui/material/Typography"
 
 function Login() {
   const router = useRouter();
   const [formLoading, setFormLoading] = React.useState(false);
   const [MessageStatus, setMessageStatus] = React.useState();
   const [open, setOpen] = React.useState(false);
-  const { user, signIn, googleSignin } = UserAuth();
+  const { user, googleSignin } = UserAuth();
+
+  useEffect(() => {
+    const CheckUserLogin = () =>{
+      if(user){
+        router.push("/");
+      }
+    }
+  
+    return () => {
+      CheckUserLogin();
+    }
+  }, [])
+  
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -59,24 +70,6 @@ function Login() {
     );
   };
 
-
-  const handleSubmit = async (event) => {
-    setFormLoading(true);
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const email = data.get("email");
-    const password = data.get("password");
-
-    try {
-      await signIn(email, password)
-      router.push('/')
-    } catch (e) {
-      setMessageStatus(e.message)
-      setOpen(true);
-      console.log(e.message)
-    }
-    setFormLoading(false);
-  }
 
 
   const action = (
@@ -121,7 +114,7 @@ function Login() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            padding: "2ch",
+            padding: "3ch",
             marginTop: "2ch",
             border: "1px solid #1976d2",
             // backgroundColor: "#F6F6F6",
@@ -129,66 +122,6 @@ function Login() {
           }}
         >
           {googleSigninButton()}
-          <p>OR</p>
-          <Box
-            component="form"
-            noValidate
-            autoComplete="off"
-            onSubmit={handleSubmit}
-            sx={{ mt: 1 }}
-          >
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                By clicking Sign In, you are agreed to{" "}
-                <Link href="https://www.edafter.com/terms-and-conditions">
-                  Terms and Conditions
-                </Link>
-              </Grid>
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="/forget" variant="body2">
-                  Forget Password?
-                </Link>
-              </Grid>
-            </Grid>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="/signup" variant="body2">
-                  haven&apos;t an account? Signup
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
         </Box>
       </Box>
       <Snackbar
