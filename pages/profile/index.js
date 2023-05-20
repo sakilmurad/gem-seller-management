@@ -73,7 +73,7 @@ function Profile() {
               <List dense>
                 <ListItem>
                   <ListItemText>
-                    <Typography variant="body1">{user && new Date(user.metadata.creationTime).toDateString()}</Typography>
+                    <Typography variant="body1">20-05-2023</Typography>
                   </ListItemText>
                 </ListItem>
                 <ListItem>

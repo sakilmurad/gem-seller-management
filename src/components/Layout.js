@@ -27,17 +27,18 @@ import { useRouter } from 'next/router'
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { UserAuth } from "../context/AuthContext";
-
+import HelpIcon from '@mui/icons-material/Help';
 
 const drawerWidth = 180;
 
 const menuItemList = [
-  { lable: "Dashboard", icon: <DashboardIcon />, to: "/", placement: 'upper'},
-  { lable: "Bids", icon: <GavelIcon />, to: "/bids", placement: 'upper' },
-  { lable: "Orders", icon: <LocalGroceryStoreIcon />, to: "/orders", placement: 'upper' },
-  { lable: "Incidents", icon: <QueryBuilderIcon />, to: "/incidents", placement: 'upper' },
-  { lable: "EMD & ePBG", icon: <CurrencyRupeeIcon />, to: "/emdepbg", placement: 'upper' },
-  { lable: "Profile", icon: <AccountCircleIcon />, to: "/profile", placement: 'lower' }
+  { lable: "Dashboard", icon: <DashboardIcon fontSize="small"/>, to: "/", placement: 'upper'},
+  { lable: "Bids", icon: <GavelIcon fontSize="small"/>, to: "/bids", placement: 'upper' },
+  { lable: "Orders", icon: <LocalGroceryStoreIcon fontSize="small"/>, to: "/orders", placement: 'upper' },
+  { lable: "Incidents", icon: <QueryBuilderIcon fontSize="small"/>, to: "/incidents", placement: 'upper' },
+  { lable: "EMD & ePBG", icon: <CurrencyRupeeIcon fontSize="small"/>, to: "/emdepbg", placement: 'upper' },
+  { lable: "Help", icon: <HelpIcon fontSize="small"/>, to: "/help", placement: 'lower' },
+  { lable: "Profile", icon: <AccountCircleIcon fontSize="small"/>, to: "/profile", placement: 'lower' },
 ];
 
 
@@ -113,6 +114,7 @@ const Signout = () =>{
                     fontSize: 14,
                     fontWeight: "medium",
                   }}
+                  sx={{marginLeft: -2}}
                 />
               </ListItemButton>
             </Link>
@@ -138,6 +140,7 @@ const Signout = () =>{
                     fontSize: 14,
                     fontWeight: "medium",
                   }}
+                sx={{marginLeft: -2}}
                 />
               </ListItemButton>
             </Link>
